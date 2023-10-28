@@ -20,13 +20,19 @@ io.on("connection", (socket) => {
 
   socket.on("join_room", (data) => {
     socket.join(data);
-  })
+
+    socket.on("disconnect", () => {
+      console.log(`User Disconnected: ${socket.id}`);
+    });
+  });
 
   socket.on("send_message", (data) => {
-    socket.to(data.room).emit("receive_message", data)
+    socket.to(data.room).emit("receive_message", data);
   });
 });
 
+io.on();
+
 server.listen(3001, () => {
-  console.log("SERVER IS RUNNING");
+  console.log("SERVER IS RUNNING", "http://localhost:3001");
 });
